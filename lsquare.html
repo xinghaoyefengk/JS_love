@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Title</title>
+    <meta charset="UTF-8">
+    <link href="../bootstrap-3.3.7-dist\css\bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    <script src="jquery-3.3.1.min.js"></script>
+    <script src="transit.js"></script>
+    <style>
+        *{
+            margin:0;
+            padding:0;
+        }
+        body{
+            background:black;
+        }
+        #heart{
+            position: relative;
+            width:100px;
+            height:160px;
+            margin:200px auto;
+            transform-style:preserve-3d;
+            animation:rot 10s linear infinite;/*名称 时间 匀速  无限重复 (设置旋转帧数)*/
+        }
+        @keyframes rot {
+            from{transform:rotateY(0deg) rotateX(0deg)}
+            to{transform:rotateY(360deg) rotateX(360deg)}
+        }
+        #heart div.heart{
+            position: absolute;
+            left:0;
+            top:0;
+            width:100px;
+            height:160px;
+            border:2px solid red;
+            border-left:0;
+            border-bottom:0;
+            border-radius:50% 50% 0/40% 50% 0;
+        }
+
+        #cube{
+            position: relative;
+            width:50px;
+            height:50px;
+            transform-style:preserve-3d;/*3d环镜*/
+            transform:translateX(25px) translateY(50px) translateZ(25px);
+            transition:2s;
+        }
+        #cube div{
+            position: absolute;
+            left:0;
+            top:0;
+            width:50px;
+            height:50px;
+        }
+        #cube div:nth-child(1){/*CSS结构伪类选择器*/
+            top:-50px;
+            transform-origin:bottom;
+            transform:rotateX(90deg);
+        }
+        #cube div:nth-child(2){
+            top:50px;
+            transform-origin:top;
+            transform:rotateX(-90deg);
+        }
+        #cube div:nth-child(3){
+            left:-50px;
+            transform-origin:right;
+            transform:rotateY(-90deg);
+        }
+        #cube div:nth-child(4){
+            left:50px;
+            transform-origin:left;
+            transform:rotateY(90deg);
+        }
+        #cube div:nth-child(5){
+
+        }
+        #cube div:nth-child(6){
+            transform:translateZ(-50px);
+        }
+        #cube:hover{
+            transform: rotateX(360deg);
+        }
+        #cube div img{
+            width:50px;
+            height:50px;
+        }
+        .masthead {
+            background:black;
+            display:block;
+            width:100%;
+            height:900px;
+        }
+        .nav-pills a:hover{
+            cursor:pointer;
+        }
+        .nav {
+            position: relative;   /*覆盖问题小知识层级*/
+            z-index: 1;
+        }
+        #content {
+            width: 100%;
+            height: 100%;
+            margin: 0 auto;
+            overflow: hidden;
+            position: absolute
+        }
+
+        #snowflake {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            overflow: hidden
+        }
+
+        @-webkit-keyframes mysnow {
+            0% {
+                bottom: 100%;
+            }
+
+            50% {
+                -webkit-transform: rotate(1080deg)
+            }
+
+            100% {
+                -webkit-transform: rotate(0deg) translate3d(50px,50px,50px)
+            }
+        }
+
+        @-moz-keyframes mysnow {
+            0% {
+                bottom: 100%
+            }
+
+            50% {
+                -moz-transform: rotate(1080deg)
+            }
+
+            100% {
+                -moz-transform: rotate(0deg) translate3d(50px,50px,50px)
+            }
+        }
+        .snowRoll {
+            position: absolute;
+            opacity: 0;
+            -webkit-animation-name: mysnow;
+            -webkit-animation-duration: 20s;
+            -moz-animation-name: mysnow;
+            -moz-animation-duration: 20s;
+            height: 80px
+        }
+    </style>
+</head>
+<body>
+<div id='content'>
+    <div id="snowflake"></div>
+</div>
+<div class="nav">
+    <ul class="nav nav-pills">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">SVN</a></li>
+        <li><a href="#">iOS</a></li>
+        <li><a href="#">VB.Net</a></li>
+        <li><a href="#">Java</a></li>
+        <li><a href="#">PHP</a></li>
+    </ul>
+</div>
+
+<div class="masthead">
+    <div id="heart">
+        <div id="cube">
+            <div><img src="images/111.png" alt=""></div>
+            <div><img src="images/222.png" alt=""></div>
+            <div><img src="images/333.png" alt=""></div>
+            <div><img src="images/444.png" alt=""></div>
+            <div><img src="images/xiong.png" alt=""></div>
+            <div><img src="images/111.png" alt=""></div>
+        </div>
+    </div>
+</div>
+<script>
+    var oHeart=document.getElementById("heart");
+;    for(var i=0;i<36;i++){
+        var  oDiv=document.createElement("div");
+        oDiv.className="heart";
+        oDiv.style.transform="rotateY("+i*10+"deg) rotateZ(45deg) translateX(30px)";
+        oHeart.appendChild(oDiv);
+    }
+
+
+    $(function() {
+        Qixix();
+    });
+    var Qixix = function() {
+        var confi = {
+            keepZoomRatio: false,
+            layer: {
+                "width": "100%",
+                "height": "100%",
+                "top": 0,
+                "left": 0
+            },
+
+            snowflakeURl: ["http://img.mukewang.com/55adde120001d34e00410041.png", "http://img.mukewang.com/55adde2a0001a91d00410041.png", "http://img.mukewang.com/55adde5500013b2500400041.png", "http://img.mukewang.com/55adde62000161c100410041.png", "http://img.mukewang.com/55adde7f0001433000410041.png", "http://img.mukewang.com/55addee7000117b500400041.png"]
+        };
+        var debug = 0;
+        if (debug) {
+            $.each(confi.setTime,
+                function(key, val) {
+                    confi.setTime[key] = 500;
+                })
+        }
+        if (confi.keepZoomRatio) {
+            var proportionY = 900 / 1440;
+            var screenHeight = $(document).height();
+            var zooomHeight = screenHeight * proportionY;
+            var zooomTop = (screenHeight - zooomHeight) / 2;
+            confi.layer.height = zooomHeight;
+            confi.layer.top = zooomTop;
+        }
+        createSnowBox();
+        function createSnowBox() {
+            function getImagesName() {
+                return confi.snowflakeURl[[Math.floor(Math.random() * 6)]];
+            }
+            var url = getImagesName();
+            return $('<div class="snowbox" />').css({
+                "width": 41,
+                "height": 41,
+                "position": "absolute",
+                "backgroundSize": "cover",
+                "zIndex": 100000,
+                "top": "-41px",
+                "backgroundImage": "url(" + url + ")"
+            }).addClass("snowRoll");
+        }
+        snowflake();
+        function snowflake() {
+            var $flakeContainer = $("#snowflake");
+            setInterval(function() {
+                    var container = $("#content");
+                    var visualWidth = container.width();
+                    var visualHeight = container.height();
+                    var startPositionLeft = Math.random() * visualWidth - 100,
+                        startOpacity = 1;
+                    endPositionTop = visualHeight - 40,
+                        endPositionLeft = startPositionLeft - 100 + Math.random() * 500,
+                        duration = visualHeight * 10 + Math.random() * 5000;
+                    var randomStart = Math.random();
+                    randomStart = randomStart < 0.5 ? startOpacity: randomStart;
+                    var $flake = createSnowBox();
+
+                    $flake.css({
+                        left: startPositionLeft,
+                        opacity: randomStart
+                    });
+                    $flakeContainer.append($flake);
+                    $flake.transition({
+                            top: endPositionTop,
+                            left: endPositionLeft,
+                            opacity: 0.7
+                        },
+                        duration, "ease-out",
+                        function() {
+                            $(this).remove();
+                        })
+                },
+                100);
+        }
+
+
+    }
+</script>
+</body>
+</html>

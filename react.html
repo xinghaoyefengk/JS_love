@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello React!</title>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    <!--<link rel="stylesheet" href="../JD/CSS/index.css">-->
+    <style rel="stylesheet">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        .w {
+            /*版心 提取 */
+            width: 1210px;
+            margin: 0 auto;
+        }
+
+        .fl {
+            float: left;
+        }
+        a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #C81623;
+        }
+        ul, ol {
+            list-style: none;				/*清除列表风格*/
+        }
+        .site-nav {
+            height: 30px;
+            line-height: 30px;
+            background-color: #f1f1f1;
+        }
+        .site-nav-send,
+        .site-nav-r .fore {
+            position: relative;
+            padding:0 25px 0 10px;
+        }
+        .site-nav-send:hover {
+            background: #fff;
+        }
+        .site-nav-send i,
+        .fore i {
+            position: absolute;
+            top: 12px;
+            right: 8px;
+            width: 14px;
+            height: 7px;
+            font: 400 13px/15px "consolas";
+            overflow: hidden;
+        }
+        .site-nav-send s,
+        .fore s{
+            position: absolute;
+            top: -7px;
+
+        }
+        .site-nav-r li {
+            padding: 0 10px;
+            float: left;
+        }
+        .site-nav-r .line {
+            width: 1px;
+            height: 12px;
+            background-color: #0f0f0f;
+            margin-top: 9px;
+            padding: 0;
+        }
+        .site-nav-r .jd-tel {
+            padding-left: 25px;
+        }
+
+        .jd-tel span{
+            position: absolute;
+            width: 15px;
+            height: 20px;
+            top: 2px;
+            left: 5px;
+            background: url("../JD/images/111.png") no-repeat;
+            background-size:cover;
+        }
+        .img img{
+            width: 450px;
+            height: 500px;
+        }
+
+    </style>
+</head>
+<body>
+<div class="site-nav"></div>
+<div id="example"></div>
+
+<script type="text/babel">
+    ReactDOM.render(
+            <div className="img">
+                <img src="images/111.png" alt=""/>
+                <img src="images/111.png" alt=""/>
+                <img src="images/111.png" alt=""/>
+                <p data-myattribute = "somevalue">这是一个很不错的 JavaScript 库!</p>
+            </div>
+        ,
+        document.getElementById('example')
+    );
+
+    ReactDOM.render(
+            <div className="w">
+                <div className="fl">
+                    <div className="site-nav-send">
+                        送至：北京◇
+                    </div>
+                    <div className="site-nav-city"></div>
+                </div>
+                <div className="fr site-nav-r">
+                    <ul>
+                        <li>
+                            <a href="">你好，请登入</a>&nbsp;
+                            <a className="col-red" href="">免费注册</a>
+                        </li>
+                        <li className="line"></li>
+                        <li><a href="">我的订单</a></li>
+                        <li className="line"></li>
+                        <li><a href="">我的京东</a></li>
+                        <li className="line"></li>
+                        <li><a href="">企业采购</a></li>
+                        <li className="line"></li>
+                        <li className="fore jd-tel">
+                            <a href="">手机京东</a>
+                            <span></span>
+                            ◇
+                        </li>
+                        <li className="line"></li>
+                        <li className="fore">
+                            关注京东
+                            ◇
+                        </li>
+                        <li className="line"></li>
+                        <li className="fore">
+                            客服服务
+                            ◇
+                        </li>
+                        <li className="line"></li>
+                        <li className="fore">
+                            网站导航
+                            ◇
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        ,
+        document.getElementsByClassName('site-nav')[0]
+    );
+
+//    function Title() {
+//        return (
+//                <div className="img">
+//                    <img src="images/111.png" alt=""/>
+//                    <img src="images/111.png" alt=""/>
+//                    <img src="images/111.png" alt=""/>
+//                    <p data-myattribute = "somevalue">这是一个很不错的 JavaScript 库!</p>
+//                </div>
+//        );
+//    }
+//    /* 渲染到页面中 */
+//    ReactDOM.render(<Title />, document.body );
+
+
+    class TodoApp extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = { items: [], text: '' };
+            this.handleChange = this.handleChange.bind(this);
+            this.handleSubmit = this.handleSubmit.bind(this);
+        }
+
+        render() {
+            return (
+                    <div>
+                        <h3>TODO</h3>
+                        <TodoList items={this.state.items} />
+                        <form onSubmit={this.handleSubmit}>
+                            <label htmlFor="new-todo">
+                                What needs to be done?
+                            </label>
+                            <input
+                                    id="new-todo"
+                                    onChange={this.handleChange}
+                                    value={this.state.text}
+                            />
+                            <button>
+                                Add #{this.state.items.length + 1}
+                            </button>
+                        </form>
+                            <img src="images/111.png" alt=""/>
+                            <img src="images/111.png" alt=""/>
+                            <img src="images/111.png" alt=""/>
+                            <p data-myattribute = "somevalue">这是一个很不错的 JavaScript 库!</p>
+                    </div>
+
+            );
+        }
+
+        handleChange(e) {
+            this.setState({ text: e.target.value });
+        }
+
+        handleSubmit(e) {
+            e.preventDefault();
+            if (!this.state.text.length) {
+                return;
+            }
+            const newItem = {
+                text: this.state.text,
+                id: Date.now()
+            };
+            this.setState(prevState => ({
+                items: prevState.items.concat(newItem),
+                text: ''
+            }));
+        }
+    }
+
+    class TodoList extends React.Component {
+        render() {
+            return (
+                    <ul>
+                        {this.props.items.map(item => (
+                                <li key={item.id}>{item.text}</li>
+                        ))}
+                    </ul>
+            );
+        }
+    }
+
+   // ReactDOM.render(<TodoApp />, document.body);
+</script>
+</body>
+</html>
